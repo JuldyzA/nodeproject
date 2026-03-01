@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | My Creative Portfolio</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/projects">Projects</a>
+            <a href="/contact">Contact</a>
+        </nav>
+    </header>
+    <main>
+        <h1>My Projects</h1>
+        <p class="projects-intro">
+            Here's a collection of my favorite projects where I've blended creativity with technology. 
+            Click on any project to learn more about the process and what makes it special.
+        </p>
+        
+        <div id="projectsGrid" class="projects-grid">
+            <p class="loading-text">Loading projects...</p>
+        </div>
+        
+        <section id="projectDetails" class="modal" aria-hidden="true">
+            <div class="modal-backdrop" id="details-backdrop"></div>
+            <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="project-title">
+                <button id="close-details" class="cta-button cta-button-primary">← Back to List</button>
+                <div id="details-content"></div>
+            </div>
+        </section>
+    </main>
+    <script src="/js/projects.js"></script>
+</body>
+</html>

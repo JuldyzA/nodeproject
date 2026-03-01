@@ -9,9 +9,3 @@ This project is a Node.js + Express portfolio server that:
 - Dynamically renders projects on the frontend using vanilla JavaScript and fetch()
 
 This assignment focuses on Express routing, middleware, API design, and frontend API integration.
-
----
-
-## Installation Steps
-
-1. Clone the repository:

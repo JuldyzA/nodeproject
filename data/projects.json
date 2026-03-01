@@ -1,160 +1,94 @@
 {
   "projects": [
     {
-      "id": "p-2001",
-      "slug": "vanilla-js-game",
-      "title": "Neon Dodger",
-      "tagline": "A fast little arcade game built with pure JavaScript.",
-      "description": "A keyboard-controlled browser game with collision detection, scoring, difficulty scaling, and a restart loop. Built without frameworks to focus on DOM, events, timing, and state.",
+      "id": "p-3001",
+      "slug": "vanilla-js-memory-game",
+      "title": "Memory Card Matching Game",
+      "tagline": "A browser-based memory game built with pure JavaScript.",
+      "description": "A card-matching memory game developed using HTML, CSS, and vanilla JavaScript. The game dynamically generates and shuffles cards, tracks flipped states, detects matching pairs, and prevents invalid moves. Includes win detection logic, move counter, timer functionality, and restart mechanics. Built without frameworks to strengthen understanding of DOM manipulation, event handling, game logic, and state management.",
       "status": true,
       "stack": ["html", "css", "javascript"],
-      "tags": ["dom", "events", "game-loop", "state"],
+      "tags": ["dom-manipulation", "event-handling", "game-logic", "state-management"],
       "images": [
-        {
-          "path": "/images/projects/vanilla-js-game/cover.png",
-          "alt": "Neon Dodger title screen with a glowing player icon and score panel",
-          "type": "cover"
-        },
-        {
-          "path": "/images/projects/vanilla-js-game/gameplay.png",
-          "alt": "Gameplay showing obstacles, score, and remaining lives",
-          "type": "screenshot"
-        }
+        { "path": "/images/projects/vanilla-js-game/cover.png", "alt": "Memory card game board layout", "type": "cover" },
+        { "path": "/images/projects/vanilla-js-game/gameplay.png", "alt": "Cards flipped showing matching pairs", "type": "screenshot" }
       ],
-      "dates": {
-        "created": "2025-09-18",
-        "updated": "2025-10-02"
-      }
-    },
+      "dates": { "created": "2025-03-10", "updated": "2025-03-18" }
+},
     {
-      "id": "p-2002",
-      "slug": "react-movie-database",
-      "title": "ReelFinder",
-      "tagline": "Search, filter, and favorite movies in React.",
-      "description": "A React app that consumes a movie API, supports search and filters, shows detail pages, and persists favorites. Focus on components, state, routing, and async fetching.",
+      "id": "p-3002",
+      "slug": "aws-expense-tracker",
+      "title": "Cloud Expense Tracker",
+      "tagline": "A serverless budget tracking application deployed on AWS.",
+      "description": "A full-stack expense tracking application hosted on AWS. The frontend is deployed on Amazon S3 and distributed via CloudFront. User authentication is handled through Amazon Cognito. Backend logic is implemented with AWS Lambda and exposed via API Gateway. The system allows secure user registration, login, and expense management with cloud-based data persistence.",
       "status": true,
-      "stack": ["react", "javascript", "css", "api"],
-      "tags": ["spa", "fetch", "routing", "state"],
+      "stack": ["html", "css", "javascript", "aws", "cognito", "lambda", "api-gateway", "s3", "cloudfront"],
+      "tags": ["serverless", "authentication", "rest-api", "cloud-architecture"],
       "images": [
-        {
-          "path": "/images/projects/react-movie-database/cover.png",
-          "alt": "ReelFinder home page with a movie search bar and poster grid",
-          "type": "cover"
-        },
-        {
-          "path": "/images/projects/react-movie-database/details.png",
-          "alt": "Movie detail page with poster, rating, cast list, and favorite button",
-          "type": "screenshot"
-        }
+        { "path": "/images/projects/vanilla-js-game/cover.png", "alt": "Expense tracker dashboard", "type": "cover" },
+        { "path": "/images/projects/aws-expense-tracker/gameplay.png", "alt": "Expense list interface", "type": "screenshot" }
       ],
-      "dates": {
-        "created": "2025-11-03",
-        "updated": "2025-11-14"
-      }
+      "dates": { "created": "2026-01-15", "updated": "2026-02-20" }
     },
     {
-      "id": "p-2003",
-      "slug": "news-style-landing-page",
-      "title": "Daily Byte",
-      "tagline": "A responsive, news-style landing page.",
-      "description": "A layout-focused project with hero, featured stories, categories, and a responsive grid. Emphasis on typography, spacing, and mobile-first design.",
+      "id": "p-3003",
+      "slug": "dotnet-cms-system",
+      "title": "Content Management System",
+      "tagline": "A CMS built with ASP.NET Core and MVC architecture.",
+      "description": "A content management system developed using ASP.NET Core MVC. Implements CRUD operations for managing posts and users, uses Entity Framework for database interaction, and follows the MVC design pattern. Includes authentication, role-based access control, and structured service/repository architecture.",
       "status": true,
-      "stack": ["html", "css", "sass"],
-      "tags": ["responsive", "grid", "typography", "layout"],
+      "stack": ["c#", "asp.net-core", "mvc", "entity-framework", "sql"],
+      "tags": ["backend", "mvc", "crud", "authentication"],
       "images": [
-        {
-          "path": "/images/projects/news-style-landing-page/cover.png",
-          "alt": "Daily Byte landing page with hero headline and featured stories grid",
-          "type": "cover"
-        },
-        {
-          "path": "/images/projects/news-style-landing-page/mobile.png",
-          "alt": "Mobile layout showing stacked story cards and a hamburger menu",
-          "type": "screenshot"
-        }
+        { "path": "/images/projects/vanilla-js-game/cover.png", "alt": "CMS dashboard interface", "type": "cover" },
+        { "path": "/images/projects/vanilla-js-game/gameplay.png", "alt": "Post management page", "type": "screenshot" }
       ],
-      "dates": {
-        "created": "2025-10-10",
-        "updated": "2025-10-18"
-      }
+      "dates": { "created": "2025-05-05", "updated": "2025-05-30" }
     },
     {
-      "id": "p-2004",
-      "slug": "node-express-mongo-portfolio",
-      "title": "Portfolio API + Views",
-      "tagline": "A data-driven portfolio powered by Node, Express, and MongoDB.",
-      "description": "Server-rendered portfolio pages backed by MongoDB. Projects load from the database, detail pages use slugs, and an admin route supports basic CRUD for entries.",
+      "id": "p-3004",
+      "slug": "react-weather-app",
+      "title": "Weather Forecast App",
+      "tagline": "A responsive weather application built with React.",
+      "description": "A weather forecast application built using React. Fetches real-time weather data from a public weather API and displays current conditions, temperature, and forecast information. Implements React hooks for state management, API data fetching, and conditional rendering with responsive UI design.",
       "status": true,
-      "stack": ["node", "express", "mongodb", "mongoose", "ejs"],
-      "tags": ["server-rendered", "crud", "routing", "database"],
+      "stack": ["react", "javascript", "css", "api-integration"],
+      "tags": ["react-hooks", "api-fetching", "responsive-design"],
       "images": [
-        {
-          "path": "/images/projects/node-express-mongo-portfolio/cover.png",
-          "alt": "Portfolio home showing project cards rendered from MongoDB data",
-          "type": "cover"
-        },
-        {
-          "path": "/images/projects/node-express-mongo-portfolio/admin.png",
-          "alt": "Admin screen with project create/edit form and validation messages",
-          "type": "screenshot"
-        }
+        { "path": "/images/projects/vanilla-js-game/cover.png", "alt": "Weather app interface", "type": "cover" },
+        { "path": "/images/projects/vanilla-js-game/gameplay.png", "alt": "Weather forecast display", "type": "screenshot" }
       ],
-      "dates": {
-        "created": "2026-01-08",
-        "updated": "2026-02-01"
-      }
-    },
+      "dates": { "created": "2025-04-01", "updated": "2025-04-12" }
+},
     {
-      "id": "p-2005",
-      "slug": "ecommerce-site",
-      "title": "Cartonaut",
-      "tagline": "A mini e-commerce site with cart and checkout flow.",
-      "description": "Product listing, product details, cart management, and a mock checkout. Focus on reusable UI components, state management, and basic validation.",
-      "status": false,
-      "stack": ["react", "javascript", "node", "express"],
-      "tags": ["ecommerce", "cart", "forms", "validation"],
-      "images": [
-        {
-          "path": "/images/projects/ecommerce-site/cover.png",
-          "alt": "Cartonaut product grid with filters and a cart badge in the header",
-          "type": "cover"
-        },
-        {
-          "path": "/images/projects/ecommerce-site/cart.png",
-          "alt": "Cart page with line items, quantity controls, and order summary",
-          "type": "screenshot"
-        }
-      ],
-      "dates": {
-        "created": "2025-12-02",
-        "updated": "2025-12-16"
-      }
-    },
+  "id": "p-3005",
+  "slug": "woocommerce-spice-store",
+  "title": "Spice E-Commerce Store",
+  "tagline": "A WooCommerce store with custom spice-level filtering.",
+  "description": "An e-commerce website built with WordPress and WooCommerce for selling cooking spices. Implemented custom filtering by spice level (Mild, Moderate, Spicy/Hot), structured product categories, and optimized the user experience for browsing and product selection. Focused on performance, clean UI, and scalable product architecture.",
+  "status": true,
+  "stack": ["wordpress", "woocommerce", "php", "css", "javascript"],
+  "tags": ["ecommerce", "custom-filter", "product-architecture", "wordpress"],
+  "images": [
+    { "path": "/images/projects/vanilla-js-game/cover.png", "alt": "Spice store homepage", "type": "cover" },
+    { "path": "/images/projects/vanilla-js-game/gameplay.png", "alt": "Product listing page with spice filters", "type": "screenshot" }
+  ],
+  "dates": { "created": "2025-06-15", "updated": "2025-07-01" }
+},
     {
-      "id": "p-2006",
-      "slug": "devops-containerized-api",
-      "title": "Containerized Notes API",
-      "tagline": "A small API shipped like a grown-up.",
-      "description": "A Node/Express REST API for notes with environment-based config and a Dockerized dev/prod setup. Built to practice deployment-thinking: ports, env vars, and repeatable builds.",
-      "status": false,
-      "stack": ["node", "express", "docker"],
-      "tags": ["rest", "containers", "env", "deployment"],
-      "images": [
-        {
-          "path": "/images/projects/devops-containerized-api/cover.png",
-          "alt": "Terminal output showing docker compose running the API service",
-          "type": "cover"
-        },
-        {
-          "path": "/images/projects/devops-containerized-api/swagger.png",
-          "alt": "API documentation page showing endpoints and example responses",
-          "type": "screenshot"
-        }
-      ],
-      "dates": {
-        "created": "2026-01-22",
-        "updated": "2026-01-29"
-      }
-    }
+  "id": "p-3006",
+  "slug": "react-movie-app",
+  "title": "React Movie Explorer",
+  "tagline": "A movie search application built with React and API integration.",
+  "description": "A dynamic movie browsing application built with React. Integrates with a public movie API to fetch and display movie details, posters, ratings, and search results. Uses React hooks for state management, component-based architecture, conditional rendering, and responsive design principles.",
+  "status": true,
+  "stack": ["react", "javascript", "css", "api-integration"],
+  "tags": ["react-hooks", "api-fetching", "search-functionality", "responsive-design"],
+  "images": [
+    { "path": "/images/projects/vanilla-js-game/cover.png", "alt": "Movie app search interface", "type": "cover" },
+    { "path": "/images/projects/vanilla-js-game/gameplay.png", "alt": "Movie details page", "type": "screenshot" }
+  ],
+  "dates": { "created": "2025-04-20", "updated": "2025-05-02" }
+}
   ]
 }

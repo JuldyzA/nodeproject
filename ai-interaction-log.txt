@@ -1,0 +1,51 @@
+ChatGPT
+How I Used AI (ChatGPT) for This Project
+Learning & Understanding Concepts
+
+Asked explanations about Node.js, Express, routing, middleware, and APIs.
+
+Clarified how JSON APIs work and how frontend connects to backend.
+
+Got beginner-friendly explanations of project structure and best practices.
+
+Debugging & Problem Solving
+
+Helped troubleshoot server setup issues (npm scripts, watch mode, routing).
+
+Fixed errors with Express routers, JSON data handling, and fetch requests.
+
+Resolved Git issues like accidentally staging node_modules.
+
+Code Guidance (Not Just Copy-Paste)
+
+Requested example code for:
+
+Express server setup
+
+API routes
+
+Frontend fetch and rendering
+
+Project details interaction.
+
+Adjusted code based on my project needs.
+
+Documentation Help
+
+Generated README.md template.
+
+Created .gitignore guidance.
+
+Helped write project summaries and reflections.
+
+Project Workflow Support
+
+Step-by-step guidance on:
+
+Backend setup
+
+API creation
+
+Frontend integration
+
+GitHub preparation.
