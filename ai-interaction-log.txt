@@ -16,7 +16,6 @@ Fixed errors with Express routers, JSON data handling, and fetch requests.
 
 Resolved Git issues like accidentally staging node_modules.
 
-Code Guidance (Not Just Copy-Paste)
 
 Requested example code for:
 
@@ -49,3 +48,117 @@ API creation
 Frontend integration
 
 GitHub preparation.
+
+
+___________________________________________
+
+
+A02
+
+___________________________________________
+
+Areas Where I Sought Assistance
+1️⃣ Express Application Structure
+
+I requested clarification and examples for:
+
+Proper Express server setup
+
+Router modularization (api.js, page routes)
+
+Correct middleware order
+
+Mounting routes with app.use()
+
+Separating API routes from view routes
+
+Main challenge:
+Understanding how route order affects behavior and why /api must be mounted before page routes.
+
+
+2️⃣ REST API Implementation
+
+I asked for help with:
+
+Implementing GET /api/projects
+
+Adding query filtering with ?q=term
+
+Handling dynamic routes (/api/projects/:id)
+
+Returning JSON instead of HTML
+
+Implementing proper JSON 404 responses
+
+Ensuring only active projects (status === true) are returned
+
+Main challenge:
+Understanding the difference between req.params and req.query, and ensuring API routes return JSON consistently.
+
+
+3️⃣ Search Functionality
+
+I needed guidance on:
+
+Implementing case-insensitive search
+
+Filtering title and description fields
+
+Returning empty arrays instead of errors
+
+Structuring search logic inside the repository layer
+
+Main challenge:
+Connecting query parameters to repository filtering logic correctly.
+
+
+4️⃣ View Engine Refactor (EJS)
+
+I requested support with:
+
+Converting static HTML to res.render()
+
+Creating layouts (layout-full, layout-sidebar)
+
+Building reusable partials (nav, footer, project-card)
+
+Passing data from routes to views
+
+Rendering project lists and details dynamically
+
+Main challenge:
+Understanding how data flows from route → render → EJS template.
+
+
+5️⃣ 404 Handling Strategy
+
+I asked for clarification on:
+
+JSON 404 for unknown /api/* routes
+
+HTML-rendered 404 for non-API routes
+
+Proper placement of 404 middleware
+
+Express middleware execution order
+
+Main challenge:
+Understanding that Express reads routes top-to-bottom and why 404 handlers must be last.
+
+
+7️⃣ Debugging & Common Errors
+
+I asked for help troubleshooting:
+
+Why /api/projects returned HTML instead of JSON
+
+Route conflicts
+
+Incorrect route prefixes
+
+Query parameter mismatch (search vs q)
+
+Middleware order issues
+
+Main challenge:
+Understanding how small routing mistakes change endpoint behavior.
