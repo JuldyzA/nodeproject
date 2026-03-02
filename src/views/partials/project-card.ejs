@@ -1,0 +1,37 @@
+<div id="projectsGrid">
+
+  <% if (projects && projects.length > 0) { %>
+
+    <% projects.forEach(project => { %>
+
+      <article class="project-card">
+
+        <h3><%= project.title %></h3>
+
+        <% 
+          const coverImage = project.images?.find(img => img.type === 'cover') || project.images?.[0];
+        %>
+
+        <% if (coverImage) { %>
+          <img src="<%= coverImage.path %>" 
+               alt="<%= coverImage.alt %>" 
+               class="project-image">
+        <% } %>
+
+        <p><%= project.tagline %></p>
+
+        <a href="/projects/<%= project.slug %>" class="project-link">
+          View project
+        </a>
+
+      </article>
+
+    <% }) %>
+
+  <% } else { %>
+
+    <p class="loading-text">No projects found.</p>
+
+  <% } %>
+
+        </div>

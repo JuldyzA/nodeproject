@@ -7,14 +7,7 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/about">About</a>
-            <a href="/projects">Projects</a>
-            <a href="/contact.html">Contact</a>
-        </nav>
-    </header>
+<%- include('partials/nav') %>
     <main>
         <h1>Get in Touch</h1>
         
@@ -47,5 +40,6 @@
         </div>
     </main>
     <script src="/js/contact.js" defer></script>
+    <%- include('partials/footer') %>
 </body>
 </html>

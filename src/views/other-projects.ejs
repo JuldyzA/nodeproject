@@ -1,0 +1,15 @@
+        <% if (otherProjects && otherProjects.length > 0) { %>
+            <aside class="project-sidebar">
+                <h2>Other Projects</h2>
+                <div class="sidebar-projects">
+                    <% otherProjects.forEach(p => { %>
+                        <article class="project-card-aside"> 
+                            <!-- <p><%= p.tagline %></p> -->
+                            <a href="/projects/<%= p.slug %>" class="project-link-aside">
+                                <h3><%= p.title %></h3>  
+                            </a>
+                        </article>
+                    <% }) %>
+                </div>
+            </aside>
+        <% } %>

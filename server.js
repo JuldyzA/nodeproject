@@ -1,30 +1,34 @@
 "use strict";
 
 const express = require('express');
-const morgan = require('morgan');
+const app = express();
 const path = require('path');
 
-const pageRouter = require('./routes/pageRouter');
-const apiRouter = require('./routes/apiRouter');
+// Parse JSON requests
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-const app = express();
+// Configuration: Define the absolute path for template files
+app.set("views", path.join(__dirname,"src","views"));
+// Configuration: Set EJS as the default templating engine
+app.set("view engine", "ejs");
+
+const morgan = require('morgan');
+
+const pageRouter = require('./src/routes/pageRouter');
+const apiRouter = require('./src/routes/apiRouter');
+
 const PORT = process.env.PORT || 3000;
-
-//load JSON
-const projectsData = require('./data/projects.json');
 
 // Middleware
 app.use(morgan('dev'));
-//parse form dta 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
 
 app.use(express.static('public'));
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 //Routes
-app.use('/', pageRouter);
 app.use('/api', apiRouter);
+app.use('/', pageRouter);
 
 //post route for contact form
 app.post('/contact', (req, res) => {

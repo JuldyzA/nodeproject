@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= project.title %> | My Creative Portfolio</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+    <%- include('partials/nav') %>
+
+    <main class="page-container-wide project-layout">
+
+         <%- include('other-projects') %>
+
+        <div class="project-content">
+             <!-- Project Title -->
+        <h1><%= project.title %></h1>
+
+        <% if (project.tagline) { %>
+            <p class="projects-intro"><%= project.tagline %></p>
+        <% } %>
+
+        <!-- Cover Image -->
+        <% 
+          const coverImage = project.images?.find(img => img.type === 'cover') || project.images?.[0];
+        %>
+
+        <% if (coverImage) { %>
+            <img 
+                src="<%= coverImage.path %>" 
+                alt="<%= coverImage.alt %>" 
+                class="project-image"
+            >
+        <% } %>
+
+        <!-- Description -->
+        <section class="card-section">
+            <h2>About This Project</h2>
+            <p><%= project.description %></p>
+        </section>
+
+        <!-- Stack -->
+        <% if (project.stack && project.stack.length > 0) { %>
+            <section class="card-section">
+                <h2>Tech Stack</h2>
+                <div class="tags">
+                    <% project.stack.forEach(item => { %>
+                        <span class="tag"><%= item %></span>
+                    <% }) %>
+                </div>
+            </section>
+        <% } %>
+
+        <!-- Tags -->
+        <% if (project.tags && project.tags.length > 0) { %>
+            <section class="card-section">
+                <h2>Tags</h2>
+                <div class="tags">
+                    <% project.tags.forEach(tag => { %>
+                        <span class="tag"><%= tag %></span>
+                    <% }) %>
+                </div>
+            </section>
+        <% } %>
+
+        <!-- Gallery -->
+        <% if (project.images && project.images.length > 1) { %>
+            <section class="card-section">
+                <h2>Gallery</h2>
+                <div class="project-gallery">
+                    <% project.images.forEach(image => { %>
+                        <figure class="project-figure">
+                            <img 
+                                src="<%= image.path %>" 
+                                alt="<%= image.alt %>" 
+                                class="project-image"
+                            >
+                            <% if (image.alt) { %>
+                                <figcaption class="project-figcaption">
+                                    <%= image.alt %>
+                                </figcaption>
+                            <% } %>
+                        </figure>
+                    <% }) %>
+                </div>
+            </section>
+        <% } %>
+
+        <!-- Back Button -->
+        <div class="cta-buttons-container">
+            <a href="/projects" class="cta-button cta-button-secondary">
+                ← Back to Projects
+            </a>
+        </div>
+        </div>
+    </main>
+    <%- include('partials/footer') %>
+
+</body>
+</html>
+
