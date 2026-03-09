@@ -15,22 +15,40 @@ router.get('/about', (req, res) => {
 });
 
 //Projects page
-router.get('/projects', (req, res) => {
-  const results = repo.searchActive(req.query.search);
-  res.render('projects', { title: 'Projects', projects: results });
+router.get("/projects", async (req, res) => {
+
+  try {
+
+    const projects = await repo.getAllActive();
+
+    console.log("Projects from DB:", projects.length);
+
+    res.render("projects", { projects }); 
+
+  } catch (err) {
+    res.status(500).send("Server error");
+  }
+
 });
 
 //Project details page
-router.get('/projects/:slug', (req, res) => {
-  const project = repo.getBySlug(req.params.slug);
-  if (!project) {
-    return res.status(404).render('404');
+router.get("/projects/:slug", async (req, res) => {
+  try {
+
+    const project = await repo.getBySlug(req.params.slug);
+
+    const otherProjects = (await repo.getAllActive())
+  .filter(p => p.slug !== req.params.slug);
+
+    res.render("project-detail", {
+      project,
+      otherProjects
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
   }
-  const otherProjects = repo.getAllActive().filter(
-    p => p.slug !== project.slug
-  );
-  
-  res.render('project-details', { title: project.title, project: project, otherProjects: otherProjects });
 });
 
 //Contact page

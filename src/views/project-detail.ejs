@@ -15,7 +15,8 @@
          <%- include('other-projects') %>
 
         <div class="project-content">
-             <!-- Project Title -->
+
+        <!-- Project Title -->
         <h1><%= project.title %></h1>
 
         <% if (project.tagline) { %>
@@ -24,8 +25,9 @@
 
         <!-- Cover Image -->
         <% 
+          
           const coverImage = project.images?.find(img => img.type === 'cover') || project.images?.[0];
-        %>
+        %> 
 
         <% if (coverImage) { %>
             <img 
@@ -59,7 +61,8 @@
                 <h2>Tags</h2>
                 <div class="tags">
                     <% project.tags.forEach(tag => { %>
-                        <span class="tag"><%= tag %></span>
+                        
+                        <span class="tag"><%= tag.name %></span>
                     <% }) %>
                 </div>
             </section>
@@ -94,10 +97,11 @@
                 ← Back to Projects
             </a>
         </div>
+
         </div>
     </main>
+
     <%- include('partials/footer') %>
 
 </body>
 </html>
-

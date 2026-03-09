@@ -1,42 +1,75 @@
-
 "use strict";
-const data = require("../../data/projects.json");
-const projectsData = data.projects;
 
-//return only active projects
-function getAllActive(){
-    return projectsData.filter(p => p.status === true);
+const Project = require("../models/projects");
+const Category = require("../models/category"); 
+
+async function getAllActive(){
+    const projects = await Project.find();
+    console.log("Projects from DB:", projects.length);
+    return projects;
 }
 
-//find project by id
-function getById(id){
-    return projectsData.find(p => p.id === id) || null;
-}
+async function searchActive(term){
 
-//find by slug
-function getBySlug(slug){
-    return projectsData.find(p => p.slug === slug) || null;
-}
-
-//search active projects by term in title, tagline, description, stack or tags
-function searchActive(term){
-    const active = getAllActive();
-
-    if(!term || term.trim() === ''){
-        return active;
+    if(!term || term.trim() === ""){
+        return await getAllActive();
     }
 
-    const lower = term.toLowerCase();
-    return active.filter(p => p.title.toLowerCase().includes(lower) ||
-    p.tagline.toLowerCase().includes(lower) ||
-    p.description.toLowerCase().includes(lower) ||
-    p.stack.some(s => s.toLowerCase().includes(lower)) ||
-    p.tags.some(t => t.toLowerCase().includes(lower))); 
+    const regex = new RegExp(term, "i");
+
+    return await Project.find({
+        isActive: true,
+        $or: [
+            { title: regex },
+            { description: regex },
+            { "tags.name": regex },
+            { stack: regex }
+        ]
+    });
 }
 
+async function getByTag(tag){
+    return await Project.find({
+        isActive: true,
+        "tags.name": new RegExp(tag, "i")
+    });
+}
+
+async function getByCategorySlug(slug){
+
+    const category = await Category.findOne({ slug: slug });
+
+    if(!category){
+        return [];
+    }
+
+    return await Project.find({
+        categoryId: category._id,
+        isActive: true
+    });
+}
+
+async function getAllCategories(){
+    return await Category.find();
+}
+
+async function getById(id){
+    return await Project.findById(id);
+}
+
+// find project by slug
+async function getBySlug(slug) {
+  return await Project.findOne({
+    slug: slug,
+    isActive: true
+  });
+}
 module.exports = {
     getAllActive,
+    searchActive,
+    getByTag,
+    getByCategorySlug,
+    getAllCategories,
     getById,
-    getBySlug,
-    searchActive
-}
+    getBySlug
+};

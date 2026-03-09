@@ -22,3 +22,5 @@ coverage/
 # Temporary files
 *.tmp
 *.temp
+# Ignore the .env file containing sensitive information
+.env
