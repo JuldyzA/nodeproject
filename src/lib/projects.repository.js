@@ -3,6 +3,7 @@
 const Project = require("../models/projects");
 const Category = require("../models/category"); 
 
+
 async function getAllActive(){
     const projects = await Project.find();
     console.log("Projects from DB:", projects.length);
@@ -27,11 +28,15 @@ async function searchActive(term){
         ]
     });
 }
-
+function escapeRegex(text){
+    return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
 async function getByTag(tag){
+    const safeTag = escapeRegex(tag);
+
     return await Project.find({
         isActive: true,
-        "tags.name": new RegExp(tag, "i")
+        "tags.name": new RegExp(`^${safeTag}$`, "i")
     });
 }
 

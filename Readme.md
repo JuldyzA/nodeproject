@@ -41,3 +41,71 @@ Repository (projects.repository.js)
         ↓
 Data (projects.json)
 
+
+# Node Portfolio Lunchpad (A03)
+This project is a Node.js + Express portfolio application that uses MongoDB Atlas with Mongoose as the database. The application replaces a previous JSON file data source and implements a minimal Admin CMS to manage Projects, Categories, and Contact submissions.
+
+The system includes server-rendered pages using EJS, API endpoints for project data, and an admin interface for content management.
+
+Features
+
+MongoDB Atlas database integration
+
+Mongoose schemas for Projects, Categories, and Contacts
+
+Admin CMS for managing content
+
+Contact form submissions stored in MongoDB
+
+Project filtering by search and tag
+
+Category-based project browsing
+
+REST-style API endpoints
+
+
+
+Setup
+
+Install dependencies:
+
+npm install
+
+Create .env file:
+
+MONGO_URI=your_mongodb_connection_string
+PORT=3000
+
+Run the server:
+
+node server.js
+
+Open in browser:
+
+http://localhost:3000
+
+
+Main Routes
+
+Public pages
+
+/                Home
+/about           About page
+/projects        Project list
+/projects/:slug  Project detail
+/contact         Contact form
+
+API routes
+
+/api/projects
+/api/projects?q=term
+/api/projects?tag=tagName
+/api/projects/category/:slug
+/api/categories
+
+Admin CMS
+
+/admin
+/admin/projects
+/admin/categories
+/admin/contacts

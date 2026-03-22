@@ -61,8 +61,8 @@
                 <h2>Tags</h2>
                 <div class="tags">
                     <% project.tags.forEach(tag => { %>
-                        
-                        <span class="tag"><%= tag.name %></span>
+                        <a href="/projects?tag=<%= encodeURIComponent(tag.name) %>" class="tag"><%= tag.name%></a>
+                       
                     <% }) %>
                 </div>
             </section>

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects | My Creative Portfolio</title>
     <link rel="stylesheet" href="/css/styles.css">
+
 </head>
 <body>
     <%- include('partials/nav') %>
@@ -15,10 +16,16 @@
             Here's a collection of my favorite projects where I've blended creativity with technology.
             Click on any project to learn more about the process and what makes it special.
         </p>
-
+        <% if (selectedTag) { %>
+        <p class="projects-intro">
+            Showing projects tagged: <strong><%= selectedTag %></strong>
+            | <a href="/projects" class="project-link">Clear filter</a>
+        </p>
+        <% } %>
         <%- include('partials/project-card', { projects: projects }) %>
     </main>
 
     <%- include('partials/footer') %>
+    <script src="/js/project.js" defer></script>
 </body>
 </html>

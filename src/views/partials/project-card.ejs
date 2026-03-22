@@ -4,7 +4,7 @@
 
   <% projects.forEach(project => { %>
 
-    <article class="project-card">
+    <article class="project-card" data-href="/projects/<%= project.slug %>">
 
       <h3><%= project.title %></h3>
 

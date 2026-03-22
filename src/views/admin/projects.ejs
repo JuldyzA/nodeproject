@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Projects - Admin</title>
+    <link rel="stylesheet" href="/css/admin-style.css">
+</head>
+
+<body>
+    <!-- Header Navigation -->
+    <header>
+        <nav>
+            <h1>Admin Panel</h1>
+            <a href="/admin">Dashboard</a>
+            <a href="/admin/projects" class="active">Projects</a>
+            <a href="/admin/categories">Categories</a>
+            <a href="/admin/contacts">Messages</a>
+            <a href="/">← Back to Portfolio</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="dashboard-container">
+            <div class="flex-between mb-4">
+                <div>
+                    <h1>Projects Management</h1>
+                    <p class="text-muted">Manage your portfolio projects</p>
+                </div>
+                <a href="/admin/projects/new" class="btn btn-primary">+ New Project</a>
+            </div>
+
+            <% if(projects && projects.length > 0) { %>
+            <div class="card">
+                <div class="card-header">
+                    <h3>Projects List</h3>
+                </div>
+                <div class="card-body" style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Status</th>
+                                <th>Tags</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% projects.forEach(project => { %>
+                            <tr>
+                                <td><strong><%= project.title %></strong></td>
+                                <td>
+                                    <% if(project.categoryId) { %>
+                                    <span class="badge badge-primary"><%= project.categoryId.name %></span>
+                                    <% } else { %>
+                                    <span class="text-muted">-</span>
+                                    <% } %>
+                                </td>
+                                <td>
+                                    <% if(project.isActive) { %>
+                                    <span class="badge badge-success">Public</span>
+                                    <% } else { %>
+                                    <span class="badge badge-warning">Hidden</span>
+                                    <% } %>
+                                </td>
+                                <td>
+                                    <% if(project.tags && project.tags.length > 0) { %>
+                                    <% project.tags.slice(0, 3).forEach(tag => { %>
+                                    <span class="badge badge-secondary"><%= tag.name %></span>
+                                    <% }) %>
+                                    <% if(project.tags.length > 3) { %>
+                                    <span class="badge badge-secondary">+<%= project.tags.length - 3 %> more</span>
+                                    <% } %>
+                                    <% } else { %>
+                                    <span class="text-muted">-</span>
+                                    <% } %>
+                                </td>
+                                <td>
+                                    <div class="flex gap-1">
+                                        <a href="/admin/projects/<%= project._id %>/edit" class="btn btn-sm btn-info">Edit</a>
+                                        <form action="/admin/projects/<%= project._id %>/delete" method="POST" style="display: inline;">
+                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete this project?')">Delete</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <% } else { %>
+            <div class="alert alert-info">
+                <p>No projects found. <a href="/admin/projects/new" class="btn btn-sm btn-primary">Create one</a></p>
+            </div>
+            <% } %>
+        </div>
+    </main>
+</body>
+
+</html>

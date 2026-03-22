@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= project ? 'Edit' : 'Create' %> Project - Admin</title>
+    <link rel="stylesheet" href="/css/admin-style.css">
+</head>
+
+<body>
+    <!-- Header Navigation -->
+    <header>
+        <nav>
+            <h1>Admin Panel</h1>
+            <a href="/admin">Dashboard</a>
+            <a href="/admin/projects" class="active">Projects</a>
+            <a href="/admin/categories">Categories</a>
+            <a href="/admin/contacts">Messages</a>
+            <a href="/">← Back to Portfolio</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="dashboard-container">
+            <div class="mb-4">
+                <h1><%= project ? 'Edit Project' : 'Create New Project' %></h1>
+                <p class="text-muted"><%= project ? 'Update project information' : 'Add a new portfolio project' %></p>
+            </div>
+
+            <form action="/admin/projects<%= project ? '/' + project._id : '' %>" method="POST" class="mt-3">
+                
+                <!-- Basic Information -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h3>Basic Information</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <div class="form-item">
+                                <label for="title">Project Title <span class="required">*</span></label>
+                                <input type="text" id="title" name="title" value="<%= project ? project.title : '' %>" required placeholder="My Awesome Project">
+                            </div>
+                            <div class="form-item">
+                                <label for="slug">Slug <span class="required">*</span></label>
+                                <input type="text" id="slug" name="slug" value="<%= project ? project.slug : '' %>" required placeholder="my-awesome-project">
+                                <p class="text-sm text-muted mt-1">URL-friendly identifier</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group full">
+                            <div class="form-item">
+                                <label for="description">Description <span class="required">*</span></label>
+                                <textarea id="description" name="description" required style="min-height: 120px;" placeholder="Describe your project..."><%= project ? project.description : '' %></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-item">
+                                <label for="categoryId">Category <span class="required">*</span></label>
+                                <select id="categoryId" name="categoryId" required>
+                                    <option value="">Select a category</option>
+                                    <% categories.forEach(category => { %>
+                                    <option value="<%= category._id %>" 
+                                        <%= project && project.categoryId && project.categoryId.toString() === category._id.toString() ? 'selected' : '' %>>
+                                        <%= category.name %>
+                                    </option>
+                                    <% }) %>
+                                </select>
+                            </div>
+                            <div class="form-item">
+                                <label for="isActive">Status <span class="required">*</span></label>
+                                <select id="isActive" name="isActive" required>
+                                    <option value="true" <%= project && project.isActive === true ? 'selected' : '' %>>Public (Visible)</option>
+                                    <option value="false" <%= project && project.isActive === false ? 'selected' : '' %>>Hidden (Draft)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technology Stack -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h3>Technology Stack</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group full">
+                            <div class="form-item">
+                                <label for="stack">Tech Stack</label>
+                                <input type="text" id="stack" name="stack" value="<%= project && project.stack ? project.stack.join(', ') : '' %>" placeholder="React, Node.js, MongoDB">
+                                <p class="text-sm text-muted mt-1">Comma-separated list of technologies</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tags -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h3>Tags</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group full">
+                            <div class="form-item">
+                                <label for="tags">Tags</label>
+                                <input type="text" id="tags" name="tags" 
+                                    value="<%= project && project.tags ? project.tags.map(t => t.name).join(', ') : '' %>" 
+                                    placeholder="web, frontend, responsive">
+                                <p class="text-sm text-muted mt-1">Comma-separated list of tags</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="flex gap-2 mt-4">
+                    <button type="submit" class="btn btn-primary">
+                        <%= project ? 'Update Project' : 'Create Project' %>
+                    </button>
+                    <a href="/admin/projects" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        // Auto-generate slug from title
+        document.getElementById('title').addEventListener('input', function(e) {
+            const slugField = document.getElementById('slug');
+            if (!slugField.dataset.userEdited) {
+                const slug = e.target.value
+                    .toLowerCase()
+                    .replace(/[^a-z0-9]+/g, '-')
+                    .replace(/^-|-$/g, '');
+                slugField.value = slug;
+            }
+        });
+
+        document.getElementById('slug').addEventListener('input', function() {
+            this.dataset.userEdited = 'true';
+        });
+    </script>
+</body>
+
+</html>

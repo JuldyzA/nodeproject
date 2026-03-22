@@ -1,18 +1,16 @@
 "use strict";
 
 require('dotenv').config();
-console.log(process.env.MONGO_URI);
 const express = require('express');
 const app = express();
 const path = require('path');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 
-console.log("Connected DB:", mongoose.connection.name);
 
 const pageRouter = require('./src/routes/pageRouter');
 const apiRouter = require('./src/routes/apiRouter');
-
+const adminRouter = require('./src/routes/adminRouter');
 const PORT = process.env.PORT || 3000;
 
 /* -----------------------------
@@ -43,8 +41,12 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 // API routes
 app.use('/api', apiRouter);
 
+// Admin routes
+app.use('/admin', adminRouter);
+
 // Page routes
 app.use('/', pageRouter);
+
 
 // Contact form route
 app.post('/contact', (req, res) => {

@@ -216,6 +216,8 @@ h3 {
     font-weight: 500;
     border: 1px solid #f0d4e6;
     transition: all 0.3s ease;
+    display: block;
+    text-decoration: none;
 }
 
 .tag:hover {
@@ -364,6 +366,16 @@ button[type="submit"]:active {
     color: #2e7d32;
     padding: 1.2rem;
     border: 2px solid #a5d6a7;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+.warning-message {
+    background: linear-gradient(135deg, #fff8e1 0%, #fff3e0 100%);
+    color: #8a4b00;
+    padding: 1.2rem;
+    border: 2px solid #ffcc80;
     border-radius: 12px;
     margin-bottom: 1.5rem;
     font-weight: 500;
@@ -561,6 +573,15 @@ footer{
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+}
+.project-card {
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 .project-card-aside{
     background: linear-gradient(135deg, #ffffff 0%, #fff5f8 100%);

@@ -6,7 +6,7 @@ const contactsSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true },
   message: { type: String, required: true },
-  postedDate: { type: String, required: true },
+  postedDate: { type: Date, default: Date.now  },
   isRead: { type: Boolean, default: false }
 });
 

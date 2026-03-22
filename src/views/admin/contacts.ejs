@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Messages - Admin</title>
+    <link rel="stylesheet" href="/css/admin-style.css">
+</head>
+
+<body>
+    <!-- Header Navigation -->
+    <header>
+        <nav>
+            <h1>Admin Panel</h1>
+            <a href="/admin">Dashboard</a>
+            <a href="/admin/projects">Projects</a>
+            <a href="/admin/categories">Categories</a>
+            <a href="/admin/contacts" class="active">Messages</a>
+            <a href="/">← Back to Portfolio</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="dashboard-container">
+            <div class="flex-between mb-4">
+                <div>
+                    <h1>Contact Messages</h1>
+                    <p class="text-muted">View and manage contact form submissions</p>
+                </div>
+            </div>
+
+            <% if(contacts && contacts.length > 0) { %>
+            <div class="card">
+                <div class="card-header">
+                    <h3>Messages List</h3>
+                </div>
+                <div class="card-body" style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Message</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% contacts.forEach(contact => { %>
+                            <tr>
+                                <td><strong><%= contact.name %></strong></td>
+                                <td>
+                                    <a href="mailto:<%= contact.email %>">
+                                        <%= contact.email %>
+                                    </a>
+                                </td>
+                                <td>
+                                    <div style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                        <%= contact.message %>
+                                    </div>
+                                </td>
+                                <td>
+                                    <% if(contact.postedDate) { %>
+                                    <%= new Date(contact.postedDate).toLocaleDateString() %>
+                                    <% } else { %>
+                                    <span class="text-muted">-</span>
+                                    <% } %>
+                                </td>
+                                <td>
+                                    <% if(contact.isRead) { %>
+                                    <span class="badge badge-success">Read</span>
+                                    <% } else { %>
+                                    <span class="badge badge-warning">Unread</span>
+                                    <% } %>
+                                </td>
+                                <td>
+                                    <div class="flex gap-1">
+                                        <form action="/admin/contacts/<%= contact._id %>/read" method="POST" style="display: inline;">
+                                            <button type="submit" class="btn btn-sm <%= contact.isRead ? 'btn-warning' : 'btn-success' %>">
+                                                <%= contact.isRead ? 'Mark Unread' : 'Mark Read' %>
+                                            </button>
+                                        </form>
+                                        <form action="/admin/contacts/<%= contact._id %>/delete" method="POST" style="display: inline;">
+                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete this message?')">Delete</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <% } else { %>
+            <div class="alert alert-info">
+                <p>No contact messages yet.</p>
+            </div>
+            <% } %>
+        </div>
+    </main>
+</body>
+
+</html>

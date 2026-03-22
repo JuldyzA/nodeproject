@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Categories - Admin</title>
+    <link rel="stylesheet" href="/css/admin-style.css">
+</head>
+
+<body>
+    <!-- Header Navigation -->
+    <header>
+        <nav>
+            <h1>Admin Panel</h1>
+            <a href="/admin">Dashboard</a>
+            <a href="/admin/projects">Projects</a>
+            <a href="/admin/categories" class="active">Categories</a>
+            <a href="/admin/contacts">Messages</a>
+            <a href="/">← Back to Portfolio</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="dashboard-container">
+            <div class="flex-between mb-4">
+                <div>
+                    <h1>Categories Management</h1>
+                    <p class="text-muted">Manage project categories</p>
+                </div>
+                <a href="/admin/categories/new" class="btn btn-primary">+ New Category</a>
+            </div>
+
+            <% if(categories && categories.length > 0) { %>
+            <div class="card">
+                <div class="card-header">
+                    <h3>Categories List</h3>
+                </div>
+                <div class="card-body" style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Slug</th>
+                                <th>Projects</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% categories.forEach(category => { %>
+                            <tr>
+                                <td><strong><%= category.name %></strong></td>
+                                <td><code><%= category.slug %></code></td>
+                                <td>
+                                    <span class="badge badge-primary">
+                                        <%= category.projectCount || 0 %> project<%= category.projectCount !== 1 ? 's' : '' %>
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="flex gap-1">
+                                        <a href="/admin/categories/<%= category._id %>/edit" class="btn btn-sm btn-info">Edit</a>
+
+                                        <% if(category.projectCount === 0 || category.projectCount === undefined) { %>
+                                        <form action="/admin/categories/<%= category._id %>/delete" method="POST" style="display:inline">
+                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete this category?')">Delete</button>
+                                        </form>
+                                        <% } else { %>
+                                        <button class="btn btn-sm btn-danger is-disabled" type="button" disabled aria-disabled="true" title="Cannot delete: this category is used by existing projects">Delete</button>
+                                        <% } %>
+                                    </div>
+                                </td>
+                            </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <% } else { %>
+            <div class="alert alert-info">
+                <p>No categories found. <a href="/admin/categories/new" class="btn btn-sm btn-primary">Create one</a></p>
+            </div>
+            <% } %>
+        </div>
+    </main>
+</body>
+
+</html>

@@ -162,3 +162,53 @@ Middleware order issues
 
 Main challenge:
 Understanding how small routing mistakes change endpoint behavior.
+
+
+
+Assignment#03 
+AI Interaction Log
+
+Tool used: ChatGPT
+
+Purpose:
+Assistance with debugging, architecture planning, and implementation guidance.
+
+Topics where AI assistance was used:
+
+1. MongoDB Atlas Setup
+- Connecting Node.js application to MongoDB Atlas
+- Troubleshooting DNS connection errors
+
+
+2. Mongoose Schema Design
+- Designing embedded tag objects
+
+3. Repository Pattern
+- Creating repository functions for:
+  - project search
+  - filtering by tag
+  - category queries
+
+4. Aggregation Query
+- Implementing MongoDB aggregation with $lookup
+- Counting project references for categories
+
+5. Express Routing Debugging
+- Fixing route ordering issues
+- Solving 404 errors for admin routes
+- Debugging circular dependencies
+
+6. Admin CMS Architecture
+- Designing routes for:
+  - categories CRUD
+
+7. Frontend Form Handling
+- Debugging AJAX contact form submission
+- Handling fetch response errors
+
+8. Error Debugging
+- Invalid Date rendering
+- missing mongoose models
+- view lookup errors
+- schema validation errors
+
