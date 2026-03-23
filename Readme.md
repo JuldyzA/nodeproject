@@ -1,101 +1,162 @@
-# Node Portfolio Launchpad (A01)
+# Node Portfolio Launchpad (A03)
 
 ## Overview
-This project is a Node.js + Express portfolio server that:
+This project is a Node.js + Express portfolio application using MongoDB Atlas with Mongoose.
 
-- Serves static HTML pages from the `/pages` folder
-- Serves static assets (CSS, JS, images) from `/public`
-- Provides a JSON API for project data
-- Dynamically renders projects on the frontend using vanilla JavaScript and fetch()
+It includes:
 
-This assignment focuses on Express routing, middleware, API design, and frontend API integration.
+- Server-side rendered pages (EJS)
+- REST-style API endpoints
+- Admin CMS for managing projects, categories, contacts, and users
+- Role-based authorization (USER, MODERATOR, ADMIN)
+- Project image upload and image metadata management
 
 
-
-# Node Portfolio Launchpad (A02)
-
-#Overview
+## Highlights
 ✅ REST API (JSON)
 
 ✅ Server-side rendered pages (EJS)
 
-✅ Proper routing
+✅ Clean routing and middleware layers
 
-✅ Search functionality
+✅ Repository pattern architecture
 
-✅ 404 handling (API vs HTML)
+✅ Authentication with Passport + session
 
-✅ Clean architecture (repository pattern)
+✅ Authorization with role-based access control
+
+✅ Project image upload (Multer) with metadata editing
 
 
-#Architecture Overview
+## Architecture Overview
 Client (Browser / Postman)
         ↓
 Express Server
         ↓
 Routes
+   ├── Page Routes
    ├── API Routes (/api/*)
-   └── Page Routes (/projects, /projects/:slug)
+   ├── Auth Routes (/auth/*)
+   └── Admin Routes (/admin/*)
         ↓
-Repository (projects.repository.js)
+Middleware
+   ├── Authentication (session + passport)
+   ├── Authorization (role checks)
+   └── Upload (multer)
         ↓
-Data (projects.json)
+Repositories
+        ↓
+Mongoose Models
+        ↓
+MongoDB Atlas
 
 
-# Node Portfolio Lunchpad (A03)
-This project is a Node.js + Express portfolio application that uses MongoDB Atlas with Mongoose as the database. The application replaces a previous JSON file data source and implements a minimal Admin CMS to manage Projects, Categories, and Contact submissions.
+## Authorization (Implemented)
+The app now includes full authentication + authorization flow:
 
-The system includes server-rendered pages using EJS, API endpoints for project data, and an admin interface for content management.
+- Local login strategy with Passport
+- Session-based authentication via express-session
+- Password hashing via bcrypt
+- Role-aware route protection
 
-Features
+Roles:
 
-MongoDB Atlas database integration
+- USER: Public browsing and basic authenticated experience
+- MODERATOR: Access to admin dashboard and contact moderation
+- ADMIN: Full CMS access (projects, categories, users, image management)
 
-Mongoose schemas for Projects, Categories, and Contacts
+Route guards:
 
-Admin CMS for managing content
+- isAuthenticated
+- isModeratorOrAdmin
+- isAdmin
 
-Contact form submissions stored in MongoDB
-
-Project filtering by search and tag
-
-Category-based project browsing
-
-REST-style API endpoints
+Unauthorized attempts are logged, and forbidden access renders a 403 page.
 
 
+## Project Image Upload (Implemented)
+Admins can manage images per project from the CMS.
 
-Setup
+Features:
 
+- Upload image files to project-specific folders
+- Auto-sanitized filename generation
+- Metadata support: alt text, caption, featured flag
+- Update image metadata in place
+- Delete image metadata from project gallery
+
+Upload behavior:
+
+- Accepted files: image/* MIME types
+- Max file size: 5 MB
+- Storage path: public/uploads/:project-slug/
+- URL path persisted in DB: /uploads/:project-slug/:filename
+- Only one featured image is kept at a time per project
+
+
+## Tech Stack
+- Node.js
+- Express
+- EJS
+- MongoDB Atlas + Mongoose
+- Passport (passport-local)
+- express-session
+- Multer
+- bcrypt
+- Morgan
+- Dotenv
+
+
+## UI / Styling Notes
+- Public site styles are served from public/css/styles.css.
+- Admin dashboard styles are served from public/css/admin-style.css.
+- Navigation and cards use gradient accents and compact utility button classes.
+- The layout is responsive, with mobile navigation behavior and stacked content sections on smaller screens.
+- Project detail and listing pages render project images using metadata (featured image + gallery support).
+
+
+## Setup
 Install dependencies:
 
 npm install
 
-Create .env file:
+Create a .env file:
 
 MONGO_URI=your_mongodb_connection_string
+SESSION_SECRET=your_session_secret
 PORT=3000
+APP_TIMEZONE=America/Vancouver
+TRUST_PROXY=false
 
 Run the server:
 
-node server.js
+npm start
+
+or (watch mode):
+
+npm run dev
 
 Open in browser:
 
 http://localhost:3000
 
 
-Main Routes
+## Main Routes
+Public pages:
 
-Public pages
+/- Home
+/about - About page
+/projects - Project list
+/projects/:slug - Project detail
+/contact - Contact form
 
-/                Home
-/about           About page
-/projects        Project list
-/projects/:slug  Project detail
-/contact         Contact form
+Auth routes:
 
-API routes
+/auth/register
+/auth/login
+/auth/logout
+
+API routes:
 
 /api/projects
 /api/projects?q=term
@@ -103,9 +164,24 @@ API routes
 /api/projects/category/:slug
 /api/categories
 
-Admin CMS
+Admin CMS:
 
 /admin
 /admin/projects
 /admin/categories
 /admin/contacts
+/admin/users
+
+Project image management (Admin only):
+
+GET /admin/projects/:projectId/images
+POST /admin/projects/:projectId/images?slug=:projectSlug
+PATCH /admin/projects/:projectId/images/:imageId
+DELETE /admin/projects/:projectId/images/:imageId
+
+
+## Notes
+- First registered account becomes ADMIN automatically.
+- Additional users are USER by default unless created/updated by ADMIN.
+- Public project pages can render featured images and image galleries from projectImages metadata.
+
