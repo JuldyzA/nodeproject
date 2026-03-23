@@ -19,8 +19,24 @@ const projectSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Category",
     required: true
+  },
+  projectImages: [
+  {
+    originalName: { type: String, required: true },
+    filename: { type: String, required: true },
+    urlPath: { type: String, required: true },
+    mimeType: { type: String, required: true },
+    size: { type: Number, required: true },
+    altText: { type: String, default: "" },
+    caption: { type: String, default: "" },
+    isFeatured: { type: Boolean, default: false },
+    uploadedAt: { type: Date, default: Date.now }
   }
+],
 });
+
+
+
 
 // 2. The Model: The constructor used to interact with the collection
 const Project = mongoose.model("Project", projectSchema);

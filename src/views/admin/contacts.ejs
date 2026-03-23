@@ -9,24 +9,14 @@
 </head>
 
 <body>
-    <!-- Header Navigation -->
-    <header>
-        <nav>
-            <h1>Admin Panel</h1>
-            <a href="/admin">Dashboard</a>
-            <a href="/admin/projects">Projects</a>
-            <a href="/admin/categories">Categories</a>
-            <a href="/admin/contacts" class="active">Messages</a>
-            <a href="/">← Back to Portfolio</a>
-        </nav>
-    </header>
+    <%- include("partials/nav", { activePage: "contacts" }) %>
 
     <main>
         <div class="dashboard-container">
             <div class="flex-between mb-4">
                 <div>
                     <h1>Contact Messages</h1>
-                    <p class="text-muted">View and manage contact form submissions</p>
+                    <p class="text-muted">Review incoming contact form submissions and keep the inbox up to date.</p>
                 </div>
             </div>
 
@@ -82,9 +72,13 @@
                                                 <%= contact.isRead ? 'Mark Unread' : 'Mark Read' %>
                                             </button>
                                         </form>
+                                        <% if (currentUser && currentUser.role === "ADMIN") { %>
                                         <form action="/admin/contacts/<%= contact._id %>/delete" method="POST" style="display: inline;">
                                             <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete this message?')">Delete</button>
                                         </form>
+                                        <% } else { %>
+                                        <button type="button" class="btn btn-sm btn-danger is-disabled" disabled title="Only admins can delete messages">Delete</button>
+                                        <% } %>
                                     </div>
                                 </td>
                             </tr>

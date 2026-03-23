@@ -36,14 +36,51 @@ header {
 }
 
 header nav {
+    position: relative;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: 60px;
+    gap: 2rem;
+}
+
+.portfolio-nav-left,
+.portfolio-nav-center,
+.portfolio-nav-right {
+    display: flex;
+    align-items: center;
+}
+
+.portfolio-nav-center {
+    flex: 1;
     justify-content: center;
     gap: 2.5rem;
     flex-wrap: wrap;
-    max-width: 1200px;
-    margin: 0 auto;
 }
 
+.portfolio-nav-right {
+    margin-left: auto;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.portfolio-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #8b5f9f;
+}
+
+.portfolio-brand:hover {
+    color: #ff99cc;
+}
+
+.portfolio-brand::after {
+    display: none;
+}
 nav a {
     color: #6b5b7f;
     text-decoration: none;
@@ -72,7 +109,29 @@ nav a:hover::after {
 nav a:hover {
     color: #ff99cc;
 }
+nav span {
+    color: #6b5b7f;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+}
 
+.portfolio-user-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.portfolio-role {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #ffd9e8 0%, #e8d5f2 100%);
+    border: 1px solid #f0d4e6;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
 main {
     padding: 2rem;
     max-width: 1400px;
@@ -172,6 +231,53 @@ h3 {
 .project-card p {
     color: #6b5b7f;
     font-size: 0.95rem;
+}
+
+.project-description {
+    margin-bottom: 1rem;
+}
+
+.project-meta-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    margin: 0.75rem 0;
+}
+
+.project-meta-label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #8a7b9c;
+    font-weight: 700;
+}
+
+.project-category-chip,
+.project-tag-chip {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 0.28rem 0.75rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    border: 1px solid #f0d4e6;
+}
+
+.project-category-chip {
+    width: fit-content;
+    background: linear-gradient(135deg, #eaf6ff 0%, #dff1ff 100%);
+    color: #2f5b79;
+}
+
+.project-tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+}
+
+.project-tag-chip {
+    background: linear-gradient(135deg, #ffd9e8 0%, #e8d5f2 100%);
+    color: #6b5b7f;
 }
 
 .project-image {
@@ -626,7 +732,25 @@ footer{
     }
 
     header nav {
-        justify-content: flex-start;
+        flex-direction: column;
+        justify-content: center;
+        gap: 0.75rem;
+        max-width: 100%;
+        min-height: auto;
+    }
+
+    .portfolio-nav-left,
+    .portfolio-nav-center,
+    .portfolio-nav-right {
+        width: 100%;
+    }
+
+    .portfolio-nav-left,
+    .portfolio-nav-right {
+        justify-content: center;
+    }
+
+    .portfolio-nav-center {
         gap: 0.4rem;
         flex-wrap: nowrap;
         overflow-x: auto;
@@ -634,16 +758,30 @@ footer{
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
         max-width: 100%;
+        justify-content: flex-start;
+        width: 100%;
     }
 
-    header nav::-webkit-scrollbar {
+    .portfolio-nav-center::-webkit-scrollbar {
         display: none;
+    }
+
+    .portfolio-nav-right {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
     }
 
     nav a {
         white-space: nowrap;
         font-size: 0.92rem;
         padding: 0.45rem 0.7rem;
+    }
+
+    nav span {
+        white-space: nowrap;
+        font-size: 0.92rem;
+        padding: 0.45rem 0.25rem;
     }
 
     main {

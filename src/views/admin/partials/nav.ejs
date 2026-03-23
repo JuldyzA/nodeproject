@@ -1,0 +1,30 @@
+<header>
+    <nav>
+        <div class="admin-nav-left">
+            <h1>Control Center</h1>
+        </div>
+
+        <div class="admin-nav-center">
+            <a href="/admin" class="<%= activePage === 'dashboard' ? 'active' : '' %>">Overview</a>
+            <% if (currentUser && currentUser.role === "ADMIN") { %>
+                <a href="/admin/projects" class="<%= activePage === 'projects' ? 'active' : '' %>">Projects</a>
+                <a href="/admin/categories" class="<%= activePage === 'categories' ? 'active' : '' %>">Categories</a>
+                <a href="/admin/users" class="<%= activePage === 'users' ? 'active' : '' %>">Team</a>
+            <% } %>
+            <a href="/admin/contacts" class="<%= activePage === 'contacts' ? 'active' : '' %>">Messages</a>
+        </div>
+
+        <div class="admin-nav-right">
+            <% if (currentUser) { %>
+                <span class="admin-user-meta">
+                    <strong><%= currentUser.nickname %></strong>
+                    <% if (currentUser.role === "MODERATOR" || currentUser.role === "ADMIN") { %>
+                        <span class="badge badge-primary"><%= currentUser.role %></span>
+                    <% } %>
+                </span>
+            <% } %>
+            <a href="/" class="btn btn-secondary btn-sm">Portfolio</a>
+            <a href="/auth/logout" class="btn btn-primary btn-sm">Logout</a>
+        </div>
+    </nav>
+</header>

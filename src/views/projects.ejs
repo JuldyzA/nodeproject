@@ -22,7 +22,15 @@
             | <a href="/projects" class="project-link">Clear filter</a>
         </p>
         <% } %>
-        <%- include('partials/project-card', { projects: projects }) %>
+        <div id="projectsGrid">
+        <% if (projects && projects.length > 0) { %>
+            <% projects.forEach(project => { %>
+                <%- include('partials/projects-list-item', { project: project }) %>
+            <% }) %>
+        <% } else { %>
+            <p class="loading-text">No projects found.</p>
+        <% } %>
+        </div>
     </main>
 
     <%- include('partials/footer') %>

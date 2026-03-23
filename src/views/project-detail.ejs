@@ -23,18 +23,21 @@
             <p class="projects-intro"><%= project.tagline %></p>
         <% } %>
 
-        <!-- Cover Image -->
         <% 
-          
-          const coverImage = project.images?.find(img => img.type === 'cover') || project.images?.[0];
-        %> 
+          const featuredImage = project.projectImages?.find(img => img.isFeatured);
+          const galleryImages = project.projectImages?.filter(img => !img.isFeatured);
+        %>
 
-        <% if (coverImage) { %>
+        <!-- Featured Image -->
+        <% if (featuredImage) { %>
             <img 
-                src="<%= coverImage.path %>" 
-                alt="<%= coverImage.alt %>" 
+                src="<%= featuredImage.urlPath || ('/uploads/' + project.slug + '/' + featuredImage.filename) %>" 
+                alt="<%= featuredImage.altText || project.title %>" 
                 class="project-image"
             >
+            <% if (featuredImage.caption) { %>
+                <p class="project-figcaption"><%= featuredImage.caption %></p>
+            <% } %>
         <% } %>
 
         <!-- Description -->
@@ -42,6 +45,16 @@
             <h2>About This Project</h2>
             <p><%= project.description %></p>
         </section>
+
+        <!-- Category -->
+        <% if (project.categoryId) { %>
+            <section class="card-section">
+                <h2>Category</h2>
+                <p>
+                    <%= project.categoryId.name ? project.categoryId.name : project.categoryId %>
+                </p>
+            </section>
+        <% } %>
 
         <!-- Stack -->
         <% if (project.stack && project.stack.length > 0) { %>
@@ -69,20 +82,20 @@
         <% } %>
 
         <!-- Gallery -->
-        <% if (project.images && project.images.length > 1) { %>
+        <% if (galleryImages && galleryImages.length > 0) { %>
             <section class="card-section">
                 <h2>Gallery</h2>
                 <div class="project-gallery">
-                    <% project.images.forEach(image => { %>
+                    <% galleryImages.forEach(image => { %>
                         <figure class="project-figure">
                             <img 
-                                src="<%= image.path %>" 
-                                alt="<%= image.alt %>" 
+                                src="<%= image.urlPath || ('/uploads/' + project.slug + '/' + image.filename) %>" 
+                                alt="<%= image.altText || project.title %>" 
                                 class="project-image"
                             >
-                            <% if (image.alt) { %>
+                            <% if (image.caption) { %>
                                 <figcaption class="project-figcaption">
-                                    <%= image.alt %>
+                                    <%= image.caption %>
                                 </figcaption>
                             <% } %>
                         </figure>

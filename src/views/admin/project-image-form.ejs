@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Project Images - Admin</title>
+  <link rel="stylesheet" href="/css/admin-style.css">
+</head>
+
+<body>
+  <%- include("partials/nav", { activePage: "projects" }) %>
+
+  <main>
+    <div class="dashboard-container">
+      <div class="image-page-header">
+        <div>
+          <h1>Project Image Gallery</h1>
+          <p class="text-muted"><%= project.title %></p>
+        </div>
+        <a href="/admin/projects" class="btn btn-secondary btn-sm">Back to Projects</a>
+      </div>
+
+      <% if (typeof error !== "undefined" && error) { %>
+      <div class="alert alert-danger"><%= error %></div>
+      <% } %>
+
+      <div class="card">
+        <div class="card-header">
+          <h3 class="image-section-title">Upload New Image</h3>
+        </div>
+        <div class="card-body">
+          <form
+            class="image-upload-form"
+            action="/admin/projects/<%= project.id %>/images?slug=<%= project.slug %>"
+            method="POST"
+            enctype="multipart/form-data"
+          >
+            <label>
+              Image File
+              <input type="file" name="projectImage" accept="image/*" required />
+            </label>
+
+            <label>
+              Alt Text
+              <input
+                type="text"
+                name="altText"
+                placeholder="Descriptive text for screen readers"
+                title="Descriptive text for screen readers"
+              />
+            </label>
+
+            <label>
+              Caption
+              <input type="text" name="caption" placeholder="Displayed under the image" title="Displayed under the image" />
+            </label>
+
+            <label>
+              Featured Image
+              <input type="checkbox" name="isFeatured" value="true" />
+            </label>
+
+            <button type="submit" class="btn btn-primary">Upload</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3 class="image-section-title">Project Images Gallery</h3>
+        </div>
+        <div class="card-body">
+          <% if (project && project.projectImages && project.projectImages.length > 0) { %>
+          <div class="image-gallery-grid">
+            <% project.projectImages.forEach(image => { %>
+              <%- include('partials/image-edit-card', { project, image }) %>
+            <% }); %>
+          </div>
+          <% } else { %>
+          <p class="text-muted">No images uploaded yet for this project.</p>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="/js/project-images-admin.js" defer></script>
+</body>
+
+</html>

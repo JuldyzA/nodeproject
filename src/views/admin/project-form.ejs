@@ -9,17 +9,7 @@
 </head>
 
 <body>
-    <!-- Header Navigation -->
-    <header>
-        <nav>
-            <h1>Admin Panel</h1>
-            <a href="/admin">Dashboard</a>
-            <a href="/admin/projects" class="active">Projects</a>
-            <a href="/admin/categories">Categories</a>
-            <a href="/admin/contacts">Messages</a>
-            <a href="/">← Back to Portfolio</a>
-        </nav>
-    </header>
+    <%- include("partials/nav", { activePage: "projects" }) %>
 
     <main>
         <div class="dashboard-container">

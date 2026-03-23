@@ -6,11 +6,14 @@ const app = express();
 const path = require('path');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
+const session = require('express-session');
+const passport = require('./src/config/passport');
 
 
 const pageRouter = require('./src/routes/pageRouter');
 const apiRouter = require('./src/routes/apiRouter');
 const adminRouter = require('./src/routes/adminRouter');
+const authRouter = require('./src/routes/authRouter');
 const PORT = process.env.PORT || 3000;
 
 /* -----------------------------
@@ -31,12 +34,35 @@ app.set("view engine", "ejs");
 
 app.use(morgan('dev'));
 
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  name: 'sessionId',
+  cookie: {
+    httpOnly: true,
+    maxAge: 1000 * 60 * 60
+  }
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user || null;
+  res.locals.isAuthenticated = Boolean(req.user);
+  next();
+});
+
 app.use(express.static('public'));
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 /* -----------------------------
    Routes
 --------------------------------*/
+
+// Authentication routes
+app.use('/auth', authRouter);
 
 // API routes
 app.use('/api', apiRouter);

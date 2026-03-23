@@ -9,24 +9,14 @@
 </head>
 
 <body>
-    <!-- Header Navigation -->
-    <header>
-        <nav>
-            <h1>Admin Panel</h1>
-            <a href="/admin">Dashboard</a>
-            <a href="/admin/projects" class="active">Projects</a>
-            <a href="/admin/categories">Categories</a>
-            <a href="/admin/contacts">Messages</a>
-            <a href="/">← Back to Portfolio</a>
-        </nav>
-    </header>
+    <%- include("partials/nav", { activePage: "projects" }) %>
 
     <main>
         <div class="dashboard-container">
             <div class="flex-between mb-4">
                 <div>
-                    <h1>Projects Management</h1>
-                    <p class="text-muted">Manage your portfolio projects</p>
+                    <h1>Project Workspace</h1>
+                    <p class="text-muted">Create, update, and organize the projects shown on your portfolio.</p>
                 </div>
                 <a href="/admin/projects/new" class="btn btn-primary">+ New Project</a>
             </div>
@@ -34,7 +24,7 @@
             <% if(projects && projects.length > 0) { %>
             <div class="card">
                 <div class="card-header">
-                    <h3>Projects List</h3>
+                    <h3>Project List</h3>
                 </div>
                 <div class="card-body" style="overflow-x: auto;">
                     <table>
@@ -44,6 +34,7 @@
                                 <th>Category</th>
                                 <th>Status</th>
                                 <th>Tags</th>
+                                <th>Manage Images</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -76,6 +67,9 @@
                                     <% } else { %>
                                     <span class="text-muted">-</span>
                                     <% } %>
+                                </td>
+                                <td>
+                                    <a href="/admin/projects/<%= project._id %>/images" class="btn btn-sm btn-info">Manage Images</a>
                                 </td>
                                 <td>
                                     <div class="flex gap-1">

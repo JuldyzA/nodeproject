@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Users - Admin</title>
+    <link rel="stylesheet" href="/css/admin-style.css">
+</head>
+
+<body>
+    <%- include("partials/nav", { activePage: "users" }) %>
+
+    <main>
+        <div class="dashboard-container">
+            <div class="flex-between mb-4">
+                <div>
+                    <h1>Team Workspace</h1>
+                    <p class="text-muted">Manage user accounts, access levels, and team permissions.</p>
+                </div>
+                <a href="/admin/users/new" class="btn btn-primary">+ New User</a>
+            </div>
+
+            <% if (users && users.length > 0) { %>
+            <div class="card">
+                <div class="card-header">
+                    <h3>Team Members</h3>
+                </div>
+                <div class="card-body" style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nickname</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Last Login</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% users.forEach(user => { %>
+                            <tr>
+                                <td><strong><%= user.nickname %></strong></td>
+                                <td><%= user.email %></td>
+                                <td>
+                                    <span class="badge <%= user.role === 'ADMIN' ? 'badge-danger' : user.role === 'MODERATOR' ? 'badge-warning' : 'badge-info' %>">
+                                        <%= user.role %>
+                                    </span>
+                                </td>
+                                <td>
+                                    <%= user.lastLogin ? new Date(user.lastLogin).toLocaleString() : '-' %>
+                                </td>
+                                <td>
+                                    <div class="flex gap-1">
+                                        <a href="/admin/users/<%= user._id %>/edit" class="btn btn-sm btn-info">Edit</a>
+
+                                        <% if (String(currentUser._id) === String(user._id)) { %>
+                                        <button type="button" class="btn btn-sm btn-danger is-disabled" disabled title="You cannot delete your own account">Delete</button>
+                                        <% } else { %>
+                                        <form action="/admin/users/<%= user._id %>/delete" method="POST" style="display:inline">
+                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete this user?')">Delete</button>
+                                        </form>
+                                        <% } %>
+                                    </div>
+                                </td>
+                            </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <% } else { %>
+            <div class="alert alert-info">No users found.</div>
+            <% } %>
+        </div>
+    </main>
+</body>
+
+</html>

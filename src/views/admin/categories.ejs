@@ -9,24 +9,14 @@
 </head>
 
 <body>
-    <!-- Header Navigation -->
-    <header>
-        <nav>
-            <h1>Admin Panel</h1>
-            <a href="/admin">Dashboard</a>
-            <a href="/admin/projects">Projects</a>
-            <a href="/admin/categories" class="active">Categories</a>
-            <a href="/admin/contacts">Messages</a>
-            <a href="/">← Back to Portfolio</a>
-        </nav>
-    </header>
+    <%- include("partials/nav", { activePage: "categories" }) %>
 
     <main>
         <div class="dashboard-container">
             <div class="flex-between mb-4">
                 <div>
-                    <h1>Categories Management</h1>
-                    <p class="text-muted">Manage project categories</p>
+                    <h1>Category Workspace</h1>
+                    <p class="text-muted">Organize the categories used across your project collection.</p>
                 </div>
                 <a href="/admin/categories/new" class="btn btn-primary">+ New Category</a>
             </div>
@@ -34,7 +24,7 @@
             <% if(categories && categories.length > 0) { %>
             <div class="card">
                 <div class="card-header">
-                    <h3>Categories List</h3>
+                    <h3>Category List</h3>
                 </div>
                 <div class="card-body" style="overflow-x: auto;">
                     <table>

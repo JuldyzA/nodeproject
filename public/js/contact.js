@@ -1,4 +1,3 @@
-console.log("contact.js loaded");
 
 function escapeHtml(value) {
   return String(value)

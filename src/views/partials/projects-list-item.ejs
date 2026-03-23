@@ -1,0 +1,37 @@
+<%# views/projects-list-item.ejs %>
+
+<article class="project-card" data-href="/projects/<%= project.slug %>">
+  <h3><%= project.title %></h3>
+  <% const featuredImage = project.projectImages?.find(img => img.isFeatured); %>
+  <% if (featuredImage) { %>
+  <img
+    src="<%= featuredImage.urlPath || ('/uploads/' + project.slug + '/' + featuredImage.filename) %>"
+    alt="<%= featuredImage.altText || project.title %>"
+    class="project-image"
+  />
+  <% } %>
+
+  <p class="project-description"><%= project.description %></p>
+
+  <% if (project.categoryId) { %>
+    <div class="project-meta-row">
+      <span class="project-meta-label">Category</span>
+      <span class="project-category-chip">
+        <%= project.categoryId.name ? project.categoryId.name : project.categoryId %>
+      </span>
+    </div>
+  <% } %>
+
+  <% if (project.tags && project.tags.length) { %>
+    <div class="project-meta-row">
+      <span class="project-meta-label">Tags</span>
+      <div class="project-tags-list">
+        <% project.tags.forEach(tag => { %>
+          <span class="project-tag-chip"><%= tag.name %></span>
+        <% }) %>
+      </div>
+    </div>
+  <% } %>
+
+  <a href="/projects/<%= project.slug %>" class="project-link">View project</a>
+</article>
