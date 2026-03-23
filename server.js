@@ -15,7 +15,7 @@ const apiRouter = require('./src/routes/apiRouter');
 const adminRouter = require('./src/routes/adminRouter');
 const authRouter = require('./src/routes/authRouter');
 const PORT = process.env.PORT || 3000;
-
+const nodemailer = require("nodemailer");
 /* -----------------------------
    Express Configuration
 --------------------------------*/
@@ -120,4 +120,12 @@ mongoose.connect(process.env.MONGO_URI)
 })
 .catch(err => {
   console.error("MongoDB connection error:", err.message);
+});
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
+  }
 });

@@ -1,4 +1,5 @@
 "use strict";
+const { logUnauthorizedAccess } = require("../lib/log.repository");
 
 /**
  * Middleware: Ensure user is authenticated
@@ -11,6 +12,12 @@ function isAuthenticated(req, res, next) {
   if (req.user) {
     // User is authenticated, let request proceed to route handler
     return next();
+    
+    logUnauthorizedAccess(req, "AUTHENTICATED");
+
+  const returnUrl = req.originalUrl;
+  res.redirect(`/auth/login?returnUrl=${encodeURIComponent(returnUrl)}`);
+
   }
 
   // User not authenticated, redirect to login
@@ -22,13 +29,16 @@ function isAuthenticated(req, res, next) {
 function hasAnyRole(...allowedRoles) {
   return (req, res, next) => {
     if (!req.user) {
+      //log guest user
+      logUnauthorizedAccess(req, allowedRoles);
       return res.redirect(`/auth/login?returnUrl=${encodeURIComponent(req.originalUrl)}`);
     }
 
     if (allowedRoles.includes(req.user.role)) {
       return next();
     }
-
+    //log logged-in user with wrong role
+    logUnauthorizedAccess(req, allowedRoles);
     return res.status(403).render("403");
   };
 }
