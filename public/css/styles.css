@@ -67,6 +67,18 @@ header nav {
     gap: 1rem;
 }
 
+.portfolio-nav-checkbox,
+.portfolio-nav-toggle {
+    display: none;
+}
+
+.portfolio-nav-menu {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    gap: 2rem;
+}
+
 .portfolio-brand {
     font-family: 'Playfair Display', serif;
     font-size: 1.4rem;
@@ -109,14 +121,12 @@ nav a:hover::after {
 nav a:hover {
     color: #ff99cc;
 }
-nav span {
+
+.portfolio-user-meta {
     color: #6b5b7f;
     font-weight: 600;
     font-size: 1rem;
-    padding: 0.5rem 1rem;
-}
-
-.portfolio-user-meta {
+    padding: 0;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -165,7 +175,7 @@ h3 {
 /* Projects Grid */
 #projectsGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 2rem;
     margin-top: 2rem;
     max-width: 1400px;
@@ -716,6 +726,10 @@ footer{
         padding: 1.5rem;
     }
 
+    #projectsGrid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .project-layout {
         grid-template-columns: 1fr;
         gap: 2rem;
@@ -726,50 +740,83 @@ footer{
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 968px) {
     header {
-        padding: 0.9rem 0.75rem;
+        padding: 1rem;
     }
 
     header nav {
-        flex-direction: column;
-        justify-content: center;
         gap: 0.75rem;
-        max-width: 100%;
+        align-items: center;
         min-height: auto;
     }
 
-    .portfolio-nav-left,
+    .portfolio-nav-toggle {
+        display: inline-flex;
+        width: 42px;
+        height: 42px;
+        margin-left: auto;
+        border-radius: 10px;
+        border: 1px solid #f0d4e6;
+        background: #fff5f8;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+    }
+
+    .portfolio-nav-toggle span {
+        width: 18px;
+        height: 1px;
+        border-radius: 2px;
+        background: #8b5f9f;
+        display: block;
+    }
+
+    .portfolio-nav-menu {
+        display: none;
+        position: absolute;
+        top: calc(100% + 0.6rem);
+        left: 0;
+        right: 0;
+        z-index: 150;
+        padding: 0.9rem;
+        border-radius: 14px;
+        background: linear-gradient(135deg, #fff5f8 0%, #f8eff9 100%);
+        border: 1px solid #f0d4e6;
+        box-shadow: 0 10px 30px rgba(139, 95, 159, 0.12);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+    }
+
+    .portfolio-nav-checkbox:checked ~ .portfolio-nav-menu {
+        display: flex;
+    }
+
     .portfolio-nav-center,
     .portfolio-nav-right {
         width: 100%;
-    }
-
-    .portfolio-nav-left,
-    .portfolio-nav-right {
-        justify-content: center;
-    }
-
-    .portfolio-nav-center {
-        gap: 0.4rem;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        overflow-y: hidden;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        max-width: 100%;
         justify-content: flex-start;
-        width: 100%;
-    }
-
-    .portfolio-nav-center::-webkit-scrollbar {
-        display: none;
+        gap: 0.5rem;
+        flex-wrap: wrap;
     }
 
     .portfolio-nav-right {
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 0.5rem;
+        border-top: 1px solid #f0d4e6;
+        padding-top: 0.6rem;
+    }
+
+    .portfolio-nav-center a,
+    .portfolio-nav-right a {
+        padding: 0.5rem 0.75rem;
+    }
+}
+
+@media (max-width: 600px) {
+    #projectsGrid {
+        grid-template-columns: 1fr;
     }
 
     nav a {
@@ -778,10 +825,9 @@ footer{
         padding: 0.45rem 0.7rem;
     }
 
-    nav span {
+    .portfolio-user-meta {
         white-space: nowrap;
         font-size: 0.92rem;
-        padding: 0.45rem 0.25rem;
     }
 
     main {
@@ -797,7 +843,7 @@ footer{
         gap: 1rem;
     }
 
-    .project-card {
+    .portfolio-card {
         padding: 1.25rem;
     }
 

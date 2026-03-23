@@ -7,6 +7,7 @@ const contactRepo = require("../lib/contact.repository");
 const categoryRepo = require("../lib/category.repository");
 const projectRepo = require("../lib/project.repository");
 const userRepo = require("../lib/user.repository");
+const logRepo = require("../lib/log.repository");
 const upload = require("../middleware/upload");
 const multer = require("multer");
 const { isAuthenticated, isModeratorOrAdmin, isAdmin } = require("../middleware/authMiddleware");
@@ -21,15 +22,31 @@ router.get("/", async (req, res) => {
     const categories = await categoryRepo.getCategoriesWithCount();
     const contacts = await contactRepo.getAllContacts();
     const usersCount = await userRepo.getUsersCount();
+    const securityEvents = req.user && req.user.role === "ADMIN"
+      ? await logRepo.getRecentUnauthorizedAccess(8)
+      : [];
 
     const projectCount = projects.length;
     const categoryCount = categories.length;
     const unreadCount = contacts.filter((c) => !c.isRead).length;
 
-    res.render("admin/dashboard", { projectCount, categoryCount, unreadCount, usersCount });
+    res.render("admin/dashboard", {
+      projectCount,
+      categoryCount,
+      unreadCount,
+      usersCount,
+      securityEvents,
+      error: req.query.error || null
+    });
   } catch (err) {
     console.error(err);
-    res.render("admin/dashboard", { projectCount: 0, categoryCount: 0, unreadCount: 0, usersCount: 0 });
+    res.render("admin/dashboard", {
+      projectCount: 0,
+      categoryCount: 0,
+      unreadCount: 0,
+      usersCount: 0,
+      securityEvents: []
+    });
   }
 });
 
@@ -37,7 +54,10 @@ router.get("/", async (req, res) => {
 router.get("/contacts", async (req, res) => {
   try {
     const contacts = await contactRepo.getAllContacts();
-    res.render("admin/contacts", { contacts });
+    res.render("admin/contacts", {
+      contacts,
+      warning: req.query.warning || null
+    });
   } catch (err) {
     console.error(err);
     res.status(500).send("Server error");
@@ -66,6 +86,24 @@ router.post("/contacts/:id/delete", isAdmin, async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).send("Server error");
+  }
+});
+
+router.post("/contacts/:id/delete-attempt", async (req, res) => {
+  try {
+    if (req.user && req.user.role !== "ADMIN") {
+      await logRepo.logUnauthorizedAccess(req, "ADMIN");
+      return res.redirect(
+        `/admin/contacts?warning=${encodeURIComponent("Delete blocked: only ADMIN users can delete contact submissions.")}`
+      );
+    }
+
+    return res.redirect("/admin/contacts");
+  } catch (err) {
+    console.error(err);
+    return res.redirect(
+      `/admin/contacts?warning=${encodeURIComponent("Could not log delete attempt. Please try again.")}`
+    );
   }
 });
 

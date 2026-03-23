@@ -8,38 +8,35 @@ const { logUnauthorizedAccess } = require("../lib/log.repository");
  * If not authenticated, redirects to login page.
  */
 function isAuthenticated(req, res, next) {
-  // Check if user exists (req.user set by passport.session())
   if (req.user) {
-    // User is authenticated, let request proceed to route handler
     return next();
-    
-    logUnauthorizedAccess(req, "AUTHENTICATED");
-
-  const returnUrl = req.originalUrl;
-  res.redirect(`/auth/login?returnUrl=${encodeURIComponent(returnUrl)}`);
-
   }
 
-  // User not authenticated, redirect to login
-  // Remember the page they tried to access for redirect after login
+  logUnauthorizedAccess(req, "AUTHENTICATED");
   const returnUrl = req.originalUrl;
-  res.redirect(`/auth/login?returnUrl=${encodeURIComponent(returnUrl)}`);
+  return res.redirect(
+    `/auth/login?returnUrl=${encodeURIComponent(returnUrl)}&error=${encodeURIComponent("Please log in to continue")}`
+  );
 }
 
 function hasAnyRole(...allowedRoles) {
   return (req, res, next) => {
     if (!req.user) {
-      //log guest user
       logUnauthorizedAccess(req, allowedRoles);
-      return res.redirect(`/auth/login?returnUrl=${encodeURIComponent(req.originalUrl)}`);
+      return res.redirect(
+        `/auth/login?returnUrl=${encodeURIComponent(req.originalUrl)}&error=${encodeURIComponent("Please log in to continue")}`
+      );
     }
 
     if (allowedRoles.includes(req.user.role)) {
       return next();
     }
-    //log logged-in user with wrong role
+
     logUnauthorizedAccess(req, allowedRoles);
-    return res.status(403).render("403");
+    return res.status(403).render("403", {
+      message: `Access denied: requires ${allowedRoles.join(" or ")} role.`,
+      backHref: "/admin"
+    });
   };
 }
 

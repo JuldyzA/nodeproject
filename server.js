@@ -15,7 +15,7 @@ const apiRouter = require('./src/routes/apiRouter');
 const adminRouter = require('./src/routes/adminRouter');
 const authRouter = require('./src/routes/authRouter');
 const PORT = process.env.PORT || 3000;
-const nodemailer = require("nodemailer");
+const APP_TIMEZONE = process.env.APP_TIMEZONE || "America/Vancouver";
 /* -----------------------------
    Express Configuration
 --------------------------------*/
@@ -27,6 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 // Views configuration
 app.set("views", path.join(__dirname, "src", "views"));
 app.set("view engine", "ejs");
+app.set("trust proxy", process.env.TRUST_PROXY === "true");
 
 /* -----------------------------
    Middleware
@@ -51,6 +52,7 @@ app.use(passport.session());
 app.use((req, res, next) => {
   res.locals.currentUser = req.user || null;
   res.locals.isAuthenticated = Boolean(req.user);
+  res.locals.appTimeZone = APP_TIMEZONE;
   next();
 });
 
@@ -120,12 +122,4 @@ mongoose.connect(process.env.MONGO_URI)
 })
 .catch(err => {
   console.error("MongoDB connection error:", err.message);
-});
-
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  }
 });

@@ -15,16 +15,20 @@
         </div>
 
         <div class="admin-nav-right">
-            <% if (currentUser) { %>
-                <span class="admin-user-meta">
-                    <strong><%= currentUser.nickname %></strong>
-                    <% if (currentUser.role === "MODERATOR" || currentUser.role === "ADMIN") { %>
-                        <span class="badge badge-primary"><%= currentUser.role %></span>
-                    <% } %>
-                </span>
-            <% } %>
             <a href="/" class="btn btn-secondary btn-sm">Portfolio</a>
-            <a href="/auth/logout" class="btn btn-primary btn-sm">Logout</a>
+
+            <div class="admin-auth-stick">
+                <% if (currentUser) { %>
+                    <span class="admin-user-meta">
+                        <strong><%= currentUser.nickname %></strong>
+                        <% if (currentUser.role === "MODERATOR" || currentUser.role === "ADMIN") { %>
+                            <span class="badge badge-primary"><%= currentUser.role %></span>
+                        <% } %>
+                    </span>
+                <% } %>
+
+                <a href="/auth/logout" class="btn btn-primary btn-sm">Logout</a>
+            </div>
         </div>
     </nav>
 </header>

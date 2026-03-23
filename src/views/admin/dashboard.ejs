@@ -13,6 +13,9 @@
 
     <main>
         <div class="dashboard-container">
+            <% if (error) { %>
+            <div class="alert alert-danger"><%= error %></div>
+        <% } %>
             <h1>Welcome to Your Workspace</h1>
             <p class="text-muted">Review and manage the areas available to your <%= currentUser && currentUser.role ? currentUser.role.toLowerCase() : "team" %> account.</p>
 
@@ -52,6 +55,50 @@
                         <a href="/admin/categories/new" class="btn btn-secondary">+ New Category</a>
                         <a href="/admin/users/new" class="btn btn-info">+ New User</a>
                     </div>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h3>Recent Security Events</h3>
+                </div>
+                <div class="card-body">
+                    <% if (securityEvents && securityEvents.length > 0) { %>
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Role</th>
+                                    <th>Method</th>
+                                    <th>Path</th>
+                                    <th>Required Role</th>
+                                    <th>IP</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% securityEvents.forEach(event => { %>
+                                <tr>
+                                    <td>
+                                        <%= new Date(event.timestamp).toLocaleString("en-CA", {
+                                            timeZone: appTimeZone,
+                                            dateStyle: "medium",
+                                            timeStyle: "short"
+                                        }) %>
+                                    </td>
+                                    <td><span class="badge badge-secondary"><%= event.role %></span></td>
+                                    <td><%= event.method %></td>
+                                    <td><code><%= event.path %></code></td>
+                                    <td><%= event.requiredRole %></td>
+                                    <td><%= event.ip || "-" %></td>
+                                </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                    <% } else { %>
+                    <p class="text-muted">No unauthorized access attempts logged yet.</p>
+                    <% } %>
                 </div>
             </div>
             <% } %>

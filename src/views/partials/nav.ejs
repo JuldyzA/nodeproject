@@ -4,27 +4,36 @@
             <a href="/" class="portfolio-brand">My Portfolio</a>
         </div>
 
-        <div class="portfolio-nav-center">
-            <a href="/">Home</a>
-            <a href="/about">About</a>
-            <a href="/projects">Projects</a>
-            <a href="/contact">Contact</a>
-        </div>
+        <input type="checkbox" id="portfolio-nav-toggle" class="portfolio-nav-checkbox" />
+        <label for="portfolio-nav-toggle" class="portfolio-nav-toggle" aria-label="Toggle navigation menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
 
-        <div class="portfolio-nav-right">
-            <% if (isAuthenticated) { %>
-                <span class="portfolio-user-meta">
-                    <strong><%= currentUser.nickname %></strong>
+        <div class="portfolio-nav-menu">
+            <div class="portfolio-nav-center">
+                <a href="/">Home</a>
+                <a href="/about">About</a>
+                <a href="/projects">Projects</a>
+                <a href="/contact">Contact</a>
+            </div>
 
-                    <% if (currentUser.role === "MODERATOR" || currentUser.role === "ADMIN") { %>
-                        <span class="portfolio-role"> <%= currentUser.role %></span>
-                    <% } %>
-                </span>
+            <div class="portfolio-nav-right">
+                <% if (isAuthenticated) { %>
+                    <span class="portfolio-user-meta">
+                        <strong><%= currentUser.nickname %></strong>
 
-                <a href="/auth/logout">Logout</a>
-            <% } else { %>
-                <a href="/auth/login">Login</a>
-            <% } %>
+                        <% if (currentUser.role === "MODERATOR" || currentUser.role === "ADMIN") { %>
+                            <span class="portfolio-role"> <%= currentUser.role %></span>
+                        <% } %>
+                    </span>
+
+                    <a href="/auth/logout">Logout</a>
+                <% } else { %>
+                    <a href="/auth/login">Login</a>
+                <% } %>
+            </div>
         </div>
     </nav>
 </header>

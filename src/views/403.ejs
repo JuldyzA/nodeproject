@@ -9,8 +9,8 @@
 <body>
     <div class="page404-container">
         <h1>403 - Forbidden</h1>
-        <p>You do not have permission to access this page.</p>
-        <a href="/">Go back to Home</a>
+        <p><%= message || "You do not have permission to access this page." %></p>
+        <a href="<%= backHref || '/' %>">Go back</a>
     </div>
 </body>
 </html>
